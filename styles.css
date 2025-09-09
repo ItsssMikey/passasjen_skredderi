@@ -32,9 +32,7 @@ a:hover { text-decoration: underline; }
 
 .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 1.2rem; }
 
-.skip-link {
-  position: absolute; left: -9999px; top: auto;
-}
+.skip-link { position: absolute; left: -9999px; top: auto; }
 .skip-link:focus { left: 1rem; top: 1rem; background: var(--white); padding: .5rem .75rem; border-radius: .5rem; z-index: 10000; }
 
 /* Header / Nav */
@@ -70,8 +68,9 @@ a:hover { text-decoration: underline; }
 }
 .cta-link:hover { text-decoration: none; filter: brightness(0.95); }
 
-/* Burger */
-.mobile-only { display: none; }
+/* Burger + mobilmeny: skjult som standard (desktop) */
+.site-header .burger,
+.site-header .mobile-menu { display: none; }
 .burger {
   border: 0; background: transparent; cursor: pointer; justify-self: end;
   padding: .4rem; border-radius: .5rem;
@@ -80,10 +79,8 @@ a:hover { text-decoration: underline; }
 .burger-bar {
   display: block; width: 26px; height: 2px; background: var(--ink); margin: 6px 0; transition: transform .25s ease, opacity .25s ease;
 }
-
-/* Mobile menu */
 .mobile-menu {
-  display: none; flex-direction: column; gap: .25rem; padding: .5rem 1rem 1rem;
+  flex-direction: column; gap: .25rem; padding: .5rem 1rem 1rem;
   border-bottom: 1px solid rgba(82,72,102,0.08);
   background: rgba(248,246,241,0.95);
 }
@@ -102,10 +99,7 @@ a:hover { text-decoration: underline; }
     linear-gradient(180deg, #fff 0%, #fff 30%, rgba(248,246,241,1) 100%);
   border-bottom: 1px solid rgba(82,72,102,0.08);
 }
-.hero-inner {
-  padding: 5rem 1.2rem 3.5rem;
-  text-align: center;
-}
+.hero-inner { padding: 5rem 1.2rem 3.5rem; text-align: center; }
 .brand { letter-spacing: .5px; color: var(--ink); }
 .lead { font-size: 1.1rem; max-width: 850px; margin: .8rem auto 1.8rem; color: #514A66; }
 .subnote { color: var(--muted); font-size: .95rem; margin-top: 1rem; }
@@ -175,84 +169,30 @@ a:hover { text-decoration: underline; }
   border-top: 1px solid rgba(82,72,102,0.12);
   border-bottom: 1px solid rgba(82,72,102,0.12);
 }
-
-.contact-section h2 {
-  margin-bottom: 0.8rem;
-}
-
+.contact-section h2 { margin-bottom: 0.8rem; }
 .contact-columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 2rem;
-  row-gap: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.25rem;
+  column-gap: 2rem; row-gap: 1rem;
+  padding-top: 0.5rem; padding-bottom: 0.25rem;
   border-top: 1px solid rgba(82,72,102,0.12);
 }
-
-.contact-columns .col h3 {
-  margin-bottom: 0.35rem;
-}
-
-.contact-columns .col p {
-  margin: 0.25rem 0 0.6rem;
-}
-
+.contact-columns .col h3 { margin-bottom: 0.35rem; }
+.contact-columns .col p { margin: 0.25rem 0 0.6rem; }
 .contact-columns .col {
   padding-left: 1rem;
   border-left: 1px solid rgba(82,72,102,0.12);
 }
+.contact-columns .col:first-child { border-left: none; padding-left: 0; }
 
-.contact-columns .col:first-child {
-  border-left: none;
-  padding-left: 0;
-}
-
-.contact-map { 
-  margin-top: 1.2rem; 
-}
-
-/* (map-faux finnes allerede, behold) */
-
-/* Responsiv tilpasning */
-@media (max-width: 960px) {
-  .contact-columns {
-    grid-template-columns: 1fr;
-    row-gap: 0.8rem;
-  }
-  .contact-columns .col {
-    border-left: none;
-    padding-left: 0;
-    padding-top: 0.6rem;
-    border-top: 1px solid rgba(82,72,102,0.12);
-  }
-  .contact-columns .col:first-child {
-    border-top: none;
-    padding-top: 0;
-  }
-}
-
-/* Kontakt – kart (embed) */
 .contact-map { margin-top: 1.2rem; }
 .map-embed {
-  height: 320px;              /* juster høyde ved behov */
-  border-radius: var(--radius);
+  height: 320px; border-radius: var(--radius);
   border: 1px solid rgba(82,72,102,0.25);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  background: #fff;
+  box-shadow: var(--shadow); overflow: hidden; background: #fff;
 }
-.map-embed iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-.map-note {
-  margin-top: .4rem;
-  font-size: .9rem;
-  color: var(--muted);
-}
+.map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+.map-note { margin-top: .4rem; font-size: .9rem; color: var(--muted); }
 
 /* Footer */
 .site-footer { border-top: 1px solid rgba(82,72,102,0.12); background: #fff; }
@@ -260,15 +200,29 @@ a:hover { text-decoration: underline; }
 .back-to-top { color: var(--ink); }
 .back-to-top:hover { color: var(--plum); }
 
-/* Responsive */
+/* ---------- Responsiv NAV + layout (EN samlet media query) ---------- */
 @media (max-width: 960px) {
-  .desktop-only { display: none; }
-  .mobile-only { display: block; }
+  /* NAV: skjul desktop-lenker, vis burger; mobilmeny styres av .open */
+  .site-header .nav-left,
+  .site-header .nav-right { display: none !important; }
+  .site-header .burger { display: block !important; }
+  .site-header .mobile-menu { display: none; }
+  .site-header .mobile-menu.open { display: flex !important; flex-direction: column; }
+
   .nav-grid { grid-template-columns: 1fr auto auto; }
   .logo { justify-self: center; }
   .logo img { height: 58px; }
+
+  .hero-inner { padding: 4rem 1.2rem 3rem; }
+
   .card-grid { grid-template-columns: 1fr; }
   .card-grid.slim { grid-template-columns: 1fr; }
-  .contact .contact-grid { grid-template-columns: 1fr; }
-  .hero-inner { padding: 4rem 1.2rem 3rem; }
+
+  /* Kontakt – kolonner blir én kolonne */
+  .contact-columns { grid-template-columns: 1fr; row-gap: 0.8rem; }
+  .contact-columns .col {
+    border-left: none; padding-left: 0;
+    padding-top: 0.6rem; border-top: 1px solid rgba(82,72,102,0.12);
+  }
+  .contact-columns .col:first-child { border-top: none; padding-top: 0; }
 }
