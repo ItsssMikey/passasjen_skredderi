@@ -1,0 +1,274 @@
+:root{
+  --plum: #B783BA;
+  --ink: #524866;
+  --white: #ffffff;
+  --gold: #C8A96A;
+  --cream: #F8F6F1;
+  --muted: #8D86A5;
+
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,0.08);
+  --maxw: 1100px;
+}
+
+/* Reset-ish */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { font-family: "Playfair Display", Georgia, 'Times New Roman', serif; margin: 0 0 .6rem; line-height: 1.2; }
+h1 { font-size: clamp(2rem, 3.5vw, 3rem); }
+h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); }
+h3 { font-size: 1.25rem; }
+
+p { margin: 0 0 1rem; }
+a { color: var(--plum); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 1.2rem; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: auto;
+}
+.skip-link:focus { left: 1rem; top: 1rem; background: var(--white); padding: .5rem .75rem; border-radius: .5rem; z-index: 10000; }
+
+/* Header / Nav */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: saturate(180%) blur(8px);
+  background: rgba(248,246,241,0.7);
+  border-bottom: 1px solid rgba(82,72,102,0.08);
+}
+.nav-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 76px;
+}
+.logo img {
+  height: 64px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.06));
+}
+.nav-left, .nav-right {
+  display: flex; gap: 1rem; align-items: center; justify-content: center;
+}
+.nav-left { justify-content: flex-start; }
+.nav-right { justify-content: flex-end; }
+.nav-link { color: var(--ink); font-weight: 500; padding: .4rem .3rem; border-radius: .5rem; }
+.nav-link:hover { color: var(--plum); text-decoration: none; background: rgba(183,131,186,0.10); }
+.nav-link.active { color: var(--plum); background: rgba(183,131,186,0.16); }
+.cta-link {
+  padding: .5rem .9rem; border-radius: 999px; background: var(--plum); color: var(--white);
+  box-shadow: var(--shadow);
+}
+.cta-link:hover { text-decoration: none; filter: brightness(0.95); }
+
+/* Burger */
+.mobile-only { display: none; }
+.burger {
+  border: 0; background: transparent; cursor: pointer; justify-self: end;
+  padding: .4rem; border-radius: .5rem;
+}
+.burger:focus-visible { outline: 2px solid var(--plum); }
+.burger-bar {
+  display: block; width: 26px; height: 2px; background: var(--ink); margin: 6px 0; transition: transform .25s ease, opacity .25s ease;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: none; flex-direction: column; gap: .25rem; padding: .5rem 1rem 1rem;
+  border-bottom: 1px solid rgba(82,72,102,0.08);
+  background: rgba(248,246,241,0.95);
+}
+.mobile-menu.open { display: flex; }
+.mobile-link {
+  padding: .75rem; border-radius: .6rem; font-weight: 500; color: var(--ink);
+}
+.mobile-link:hover { background: var(--white); text-decoration: none; }
+.mobile-cta { background: var(--plum); color: var(--white); text-align: center; }
+
+/* Hero */
+.hero {
+  position: relative;
+  background:
+    radial-gradient(1200px 500px at 80% -20%, rgba(183,131,186,0.25), transparent 60%),
+    linear-gradient(180deg, #fff 0%, #fff 30%, rgba(248,246,241,1) 100%);
+  border-bottom: 1px solid rgba(82,72,102,0.08);
+}
+.hero-inner {
+  padding: 5rem 1.2rem 3.5rem;
+  text-align: center;
+}
+.brand { letter-spacing: .5px; color: var(--ink); }
+.lead { font-size: 1.1rem; max-width: 850px; margin: .8rem auto 1.8rem; color: #514A66; }
+.subnote { color: var(--muted); font-size: .95rem; margin-top: 1rem; }
+.hero-ctas { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0; }
+
+.btn {
+  display: inline-block; padding: .8rem 1.1rem; border-radius: 999px; font-weight: 600; border: 1px solid transparent;
+  transition: transform .05s ease, filter .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--plum); color: var(--white); box-shadow: var(--shadow); }
+.btn-primary:hover { filter: brightness(.95); text-decoration: none; }
+.btn-ghost { background: transparent; border-color: rgba(82,72,102,0.2); color: var(--ink); }
+.btn-ghost:hover { background: var(--white); text-decoration: none; }
+
+/* Sections */
+.section { padding: 3.5rem 0; }
+.section-alt { background: var(--white); }
+.section-intro { color: #5E5875; }
+
+/* Content blocks */
+.content { max-width: 850px; }
+.goal {
+  background: linear-gradient(0deg, rgba(200,169,106,0.07), rgba(200,169,106,0.07));
+  border: 1px solid rgba(200,169,106,0.25);
+  padding: 1rem 1rem 1rem;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+}
+
+/* Cards */
+.card-grid { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.card-grid.slim { grid-template-columns: repeat(2, 1fr); }
+.card {
+  background: var(--cream);
+  border: 1px solid rgba(82,72,102,0.12);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.1rem;
+  box-shadow: var(--shadow);
+}
+.card h3 { margin-bottom: .3rem; }
+
+/* Benefits */
+.benefits { margin-top: 1rem; }
+.checklist { list-style: none; padding: 0; margin: .5rem 0 0; }
+.checklist li {
+  position: relative; padding-left: 28px; margin-bottom: .5rem;
+}
+.checklist li::before {
+  content: "✓";
+  position: absolute; left: 0; top: 0; line-height: 1.2;
+  color: var(--gold); font-weight: 700;
+}
+
+/* Did you know */
+.did-you-know {
+  margin-top: 1.2rem;
+  border-left: 4px solid var(--gold);
+  padding: .6rem 1rem;
+  background: rgba(200,169,106,0.08);
+  border-radius: 8px;
+}
+
+/* Kontakt – samlet seksjon */
+.contact-section {
+  background: var(--white);
+  border-top: 1px solid rgba(82,72,102,0.12);
+  border-bottom: 1px solid rgba(82,72,102,0.12);
+}
+
+.contact-section h2 {
+  margin-bottom: 0.8rem;
+}
+
+.contact-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2rem;
+  row-gap: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-top: 1px solid rgba(82,72,102,0.12);
+}
+
+.contact-columns .col h3 {
+  margin-bottom: 0.35rem;
+}
+
+.contact-columns .col p {
+  margin: 0.25rem 0 0.6rem;
+}
+
+.contact-columns .col {
+  padding-left: 1rem;
+  border-left: 1px solid rgba(82,72,102,0.12);
+}
+
+.contact-columns .col:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+
+.contact-map { 
+  margin-top: 1.2rem; 
+}
+
+/* (map-faux finnes allerede, behold) */
+
+/* Responsiv tilpasning */
+@media (max-width: 960px) {
+  .contact-columns {
+    grid-template-columns: 1fr;
+    row-gap: 0.8rem;
+  }
+  .contact-columns .col {
+    border-left: none;
+    padding-left: 0;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(82,72,102,0.12);
+  }
+  .contact-columns .col:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+}
+
+/* Kontakt – kart (embed) */
+.contact-map { margin-top: 1.2rem; }
+.map-embed {
+  height: 320px;              /* juster høyde ved behov */
+  border-radius: var(--radius);
+  border: 1px solid rgba(82,72,102,0.25);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  background: #fff;
+}
+.map-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.map-note {
+  margin-top: .4rem;
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+/* Footer */
+.site-footer { border-top: 1px solid rgba(82,72,102,0.12); background: #fff; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.2rem; }
+.back-to-top { color: var(--ink); }
+.back-to-top:hover { color: var(--plum); }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+  .nav-grid { grid-template-columns: 1fr auto auto; }
+  .logo { justify-self: center; }
+  .logo img { height: 58px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .card-grid.slim { grid-template-columns: 1fr; }
+  .contact .contact-grid { grid-template-columns: 1fr; }
+  .hero-inner { padding: 4rem 1.2rem 3rem; }
+}
