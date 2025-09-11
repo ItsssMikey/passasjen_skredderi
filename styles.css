@@ -25,8 +25,15 @@ body {
   background: var(--cream);
   line-height: 1.6;
   text-rendering: optimizeLegibility;
+
+  /* Layout for sticky footer */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   padding-top: var(--headerH); /* plass til fixed header */
 }
+main { flex: 1; }
 
 /* Viktig for å fjerne hvite kanter rundt bilder/figurer */
 img, svg { display: block; max-width: 100%; height: auto; }
@@ -47,10 +54,9 @@ a:hover { text-decoration: underline; }
 .skip-link:focus { left: 1rem; top: 1rem; background: var(--white); padding: .5rem .75rem; border-radius: .5rem; z-index: 10000; }
 
 /* ---------------- Header / Nav ---------------- */
-/* Fast/top-fixed navbar for maksimal pålitelighet */
 .site-header {
   position: fixed;
-  inset: 0 0 auto 0; /* top:0; left:0; right:0 */
+  top: 0; left: 0; right: 0;
   z-index: 3000;
   -webkit-backdrop-filter: saturate(180%) blur(8px);
   backdrop-filter: saturate(180%) blur(8px);
@@ -88,9 +94,8 @@ a:hover { text-decoration: underline; }
 }
 .cta-link:hover { text-decoration: none; filter: brightness(0.95); }
 
-/* Burger + mobilmeny: skjult som standard (desktop) */
-.site-header .burger,
-.site-header .mobile-menu { display: none; }
+/* Burger på desktop = skjult */
+.site-header .burger { display: none; }
 .burger {
   border: 0; background: transparent; cursor: pointer; justify-self: end;
   padding: .4rem; border-radius: .5rem;
@@ -99,14 +104,40 @@ a:hover { text-decoration: underline; }
 .burger-bar {
   display: block; width: 26px; height: 2px; background: var(--ink); margin: 6px 0; transition: transform .25s ease, opacity .25s ease;
 }
+
+/* --------- Mobilmeny --------- */
 .mobile-menu {
-  flex-direction: column; gap: .25rem; padding: .5rem 1rem 1rem;
-  border-bottom: 1px solid rgba(82,72,102,0.08);
-  background: rgba(248,246,241,0.95);
+  position: fixed;
+  inset: var(--headerH) 0 0 0;        /* fyll viewport under header */
+  z-index: 3100;                      /* over header-innholdet */
+  display: none;                      /* vises kun når .open + mobil */
+  flex-direction: column;
+  gap: .5rem;
+  padding: 12px 16px 24px;
+
+  /* Mørk overlay */
+  background: rgba(0,0,0,0.6);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
-.mobile-link { padding: .75rem; border-radius: .6rem; font-weight: 500; color: var(--ink); }
-.mobile-link:hover { background: var(--white); text-decoration: none; }
-.mobile-cta { background: var(--plum); color: var(--white); text-align: center; }
+
+/* Når header er krympet, flytt toppen tilsvarende (adjacent sibling) */
+.site-header.scrolled + .mobile-menu {
+  inset: var(--headerH-scrolled) 0 0 0;
+}
+
+.mobile-link {
+  display: block;
+  padding: .9rem 1rem;
+  border-radius: .8rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: rgba(255,255,255,0.96);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(82,72,102,0.12);
+}
+.mobile-link:hover { background: #fff; text-decoration: none; }
+.mobile-cta { background: var(--plum); color: var(--white); border: 1px solid transparent; text-align: center; }
 
 /* ---------------- Hero ---------------- */
 .hero {
@@ -121,7 +152,29 @@ a:hover { text-decoration: underline; }
 .lead { font-size: 1.1rem; max-width: 850px; margin: .8rem auto 1.8rem; color: #514A66; }
 .subnote { color: var(--muted); font-size: .95rem; margin-top: 1rem; }
 
-/* ---------------- Galleri (kant-til-kant, jevn animasjon) ---------------- */
+/* ---------------- Knapper ---------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding: .85rem 1.1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid transparent;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: transform .05s ease, filter .2s ease, background .2s ease, border-color .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--plum); color: var(--white) !important; box-shadow: var(--shadow); }
+.btn-primary:hover { filter: brightness(.95); text-decoration: none; }
+.btn-ghost { background: transparent; border-color: rgba(82,72,102,0.2); color: var(--ink) !important; }
+.btn-ghost:hover { background: var(--white); text-decoration: none; }
+.hero-ctas .btn { min-width: 160px; }
+
+/* ---------------- Galleri ---------------- */
 .hero-gallery {
   width: 100%;
   position: relative;
@@ -129,7 +182,8 @@ a:hover { text-decoration: underline; }
   padding: 0;
   background: transparent;
   border: 0;
-  overflow: clip; /* klipp overspill uten scrollbars */
+  overflow: hidden; /* fallback */
+  overflow: clip;   /* moderne klipp uten scrollbars */
 }
 
 .gallery {
@@ -255,30 +309,57 @@ a:hover { text-decoration: underline; }
 .map-note { margin-top: .4rem; font-size: .9rem; color: var(--muted); }
 
 /* ---------------- Footer ---------------- */
-.site-footer { border-top: 1px solid rgba(82,72,102,0.12); background: #fff; }
-.footer-inner.footer-grid {
-  display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 1.2rem; padding: 1.2rem 1.2rem;
+.site-footer { border-top: 1px solid rgba(82,72,102,0.12); background: #fff; margin-top: auto; }
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.2rem 0.6rem;
 }
-.footer-col { color: var(--ink); }
+
+.footer-social { display: flex; align-items: center; gap: 1rem; }
 .footer-title {
   font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-  font-size: 1.1rem; margin: 0 0 .4rem;
+  font-size: 1.1rem; margin: 0;
 }
-.footer-list { list-style: none; margin: 0; padding: 0; }
-.footer-list li { position: relative; padding-left: 28px; margin: .35rem 0; }
-.footer-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--gold); font-weight: 700; line-height: 1.2; }
-.footer-meta { align-self: end; text-align: right; }
-.back-to-top { color: var(--ink); }
+
+.socials { display: flex; gap: .6rem; }
+.social-link {
+  width: 38px; height: 38px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--cream);
+  border: 1px solid rgba(82,72,102,0.12);
+  box-shadow: var(--shadow);
+  transition: transform .05s ease, background .2s ease, border-color .2s ease;
+}
+.social-link:hover { background: #fff; text-decoration: none; transform: translateY(-1px); }
+.social-link svg { width: 18px; height: 18px; fill: var(--ink); }
+
+.footer-back { justify-self: end; }
+.back-to-top { color: var(--ink); font-weight: 600; }
 .back-to-top:hover { color: var(--plum); }
+
+/* Bunnlinje med opphavsrett – alltid sentrert og liten, men med god kontrast */
+.footer-bottom {
+  border-top: 1px solid rgba(82,72,102,0.12);
+  padding: .75rem 1.2rem;
+  text-align: center;
+  font-size: .82rem;              /* mye mindre tekst */
+  color: var(--ink);              /* god kontrast (ikke dempet) */
+  background: #fff;
+}
 
 /* ---------------- Responsiv NAV + layout (<= 960px) ---------------- */
 @media (max-width: 960px) {
-  /* NAV: skjul desktop-lenker, vis burger; mobilmeny vises kun når .open */
+  /* NAV: skjul desktop-lenker, vis burger; mobilmeny vises når .open */
   .site-header .nav-left,
   .site-header .nav-right { display: none !important; }
   .site-header .burger { display: block !important; }
-  .site-header .mobile-menu { display: none; }
-  .site-header .mobile-menu.open { display: flex !important; flex-direction: column; }
+
+  .mobile-menu { display: none; }
+  .mobile-menu.open { display: flex !important; }
 
   .nav-grid { grid-template-columns: 1fr auto auto; }
   .logo { justify-self: center; }
@@ -297,6 +378,11 @@ a:hover { text-decoration: underline; }
   }
   .contact-columns .col:first-child { border-top: none; padding-top: 0; }
 
-  .footer-inner.footer-grid { grid-template-columns: 1fr; }
-  .footer-meta { text-align: left; align-self: start; }
+  .footer-top { grid-template-columns: 1fr; gap: .6rem; }
+  .footer-back { justify-self: start; }
+}
+
+/* Når header krymper, juster mobilmeny-innfesting */
+.site-header.scrolled + .mobile-menu {
+  inset: var(--headerH-scrolled) 0 0 0;
 }

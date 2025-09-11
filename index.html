@@ -24,7 +24,7 @@
       </nav>
 
       <!-- Logo i midten (full + ikon) -->
-      <a href="index.html" class="logo" aria-label="Forside">
+      <a href="#top" class="logo" aria-label="Forside">
         <img src="fullLogo.png" alt="Passasjen Skredderi" class="logo-full" />
         <img src="logo.png" alt="Passasjen Skredderi ikon" class="logo-icon" />
       </a>
@@ -41,14 +41,14 @@
         <span class="burger-bar"></span>
       </button>
     </div>
-
-    <!-- Mobilmeny -->
-    <nav id="mobileMenu" class="mobile-menu" aria-label="Mobilmeny">
-      <a href="#tjenester" class="mobile-link">Tjenester</a>
-      <a href="#om-oss" class="mobile-link">Om oss</a>
-      <a href="#kontakt" class="mobile-link mobile-cta">Kontakt</a>
-    </nav>
   </header>
+
+  <!-- MOBILMENY -->
+  <nav id="mobileMenu" class="mobile-menu" aria-label="Mobilmeny">
+    <a href="#tjenester" class="mobile-link">Tjenester</a>
+    <a href="#om-oss" class="mobile-link">Om oss</a>
+    <a href="#kontakt" class="mobile-link mobile-cta">Kontakt</a>
+  </nav>
 
   <main id="main">
     <!-- Hero -->
@@ -63,10 +63,11 @@
           <a href="#kontakt" class="btn btn-primary">Kontakt oss</a>
           <a href="#tjenester" class="btn btn-ghost">Se våre tjenester</a>
         </div>
+        <p class="subnote">Sentralt i Folketeaterpassasjen – lett tilgjengelig for private, butikker og bedrifter.</p>
       </div>
     </section>
 
-    <!-- Fullbredde galleri under hero -->
+    <!-- Fullbredde galleri -->
     <section class="hero-gallery" aria-label="Galleri">
       <div class="gallery" tabindex="0" aria-roledescription="carousel" aria-label="Forsidebilder">
         <div class="gallery-track">
@@ -92,8 +93,6 @@
           <button class="dot" role="tab" aria-selected="false" aria-label="Bilde 3"></button>
         </div>
       </div>
-
-      <p class="subnote">Sentralt i Folketeaterpassasjen – lett tilgjengelig for private, butikker og bedrifter.</p>
     </section>
 
     <!-- Om oss -->
@@ -112,6 +111,11 @@
         <p>
           Hos oss kombineres tradisjonelt håndverk med topp moderne utstyr – som sikrer kvalitet og presisjon i alt vi gjør.
           Vårt dedikerte team gir en personlig opplevelse, enten det gjelder små justeringer eller større tilpasninger.
+        </p>
+        <h4 class="footer-title">Vårt mål</h4>
+        <p>
+          Å levere høy kvalitet, rask service og gjøre bærekraftige valg enklere for våre kunder.
+          Sammen sørger vi for at både klær og sko får nytt liv – med perfekt passform og stil.
         </p>
       </div>
     </section>
@@ -151,7 +155,7 @@
             </p>
           </article>
 
-          <!-- Visste du at – spenner alle kolonner -->
+          <!-- Visste du at – full bredde -->
           <aside class="did-you-know">
             <h4>Visste du at…</h4>
             <ul>
@@ -206,21 +210,38 @@
     </section>
   </main>
 
-  <!-- Footer med "Vårt mål" og "Visste du at" -->
-  <footer class="site-footer">
-    <div class="container footer-inner footer-grid">
-      <div class="footer-col">
-      <p>&copy; <span id="year"></span> Passasjen Skredderi. Alle rettigheter reservert.</p>
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-top">
+      <div class="footer-social">
+        <h4 class="footer-title">Følg oss</h4>
+        <nav class="socials" aria-label="Følg oss i sosiale medier">
+          <a class="social-link" href="#" aria-label="Facebook">
+            <!-- Facebook SVG -->
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.19 8.44 9.94v-7.03H7.9v-2.91h2.54v-2.22c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.62.77-1.62 1.56v1.88h2.76l-.44 2.91h-2.32V22c4.78-.75 8.44-4.92 8.44-9.94Z"/></svg>
+          </a>
+          <a class="social-link" href="#" aria-label="Instagram">
+            <!-- Instagram SVG -->
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5Zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5Zm5.75-3.25a1 1 0 1 1-1 1 1 1 0 0 1 1-1Z"/></svg>
+          </a>
+          <a class="social-link" href="#" aria-label="Google">
+            <!-- Google (GMB) SVG -->
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21.35 11.1H12v2.92h5.34c-.23 1.44-1.6 4.24-5.34 4.24A6.16 6.16 0 1 1 17.4 7.9l2.07-2.02A9.04 9.04 0 1 0 12 21.04c5.2 0 8.6-3.65 8.6-8.79 0-.67-.08-1.15-.25-1.15Z"/></svg>
+          </a>
+        </nav>
       </div>
 
-
-
-      <div class="footer-col">
-        <a href="#top" class="back-to-top">Til toppen</a>
+      <div class="footer-back">
+        <a href="#top" class="back-to-top" aria-label="Til toppen">Til toppen</a>
       </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Passasjen Skredderi — Alle rettigheter reservert.</p>
     </div>
   </footer>
 
+  <!-- JS -->
   <script src="script.js"></script>
 </body>
 </html>
